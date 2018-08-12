@@ -1,20 +1,26 @@
 Command line interface to generate mnemonic hd wallet in python3
+
 Can be used to create bitcoin, bitcoin-testnet or ethereum account
+
 Follow same pattern as this website : https://iancoleman.io/bip39/
 
 # Before install
 pip install mnemonic 
+
 pip install bip32utils
 
 # install
 
 git clone https://github.com/MohamedLEGH/WalletGenPython
+
 cd WalletGenPython
+
 chmod u+x walletgen
 
 # Usage
 
 To generate a new mnemonic (24 words)
+
 ./walletgen --new mnemonic 
 
 output : 
@@ -22,10 +28,13 @@ output :
   equivalent master seed 
 
 To derivate account from mnemonic
+
 ./walletgen --new account
 
 enter network (ethereum or bitcoin or bitcoin-testnet)
+
 enter the account number you want to generate
+
 enter the mnemonic 24 words
 
 output:
@@ -40,10 +49,13 @@ example :
 ./walletgen --new mnemonic 
 
 output :
+
 Your 24 mnemonic words are: 
+
 stairs patrol mimic memory scorpion lady arctic second mouse punch nature humor strong valid fat father great game tattoo cat unaware twist near vessel
 
 The equivalent master seed is: 
+
 557531277f3b1b5b5e9225011b34bfbd7df99911150ecae731342742971698f87613b3ff1d2106f230bbc57ba729cedacbad15551154c8b93dfe541a8104fc6f
 
 
