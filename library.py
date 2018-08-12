@@ -3,7 +3,7 @@
 """
 
 library to generate hd account for bitcoin and ethereum
-follo https://iancoleman.io/bip39/ patern
+follow https://iancoleman.io/bip39/ patern
 
 """
 import sys
@@ -47,27 +47,36 @@ def rootkey_from_seed(seed,network):
 
 def account_from_rootkey(key,account_number,network):
     if network == 'bitcoin':
-        account = key.ChildKey(44 + BIP32_HARDEN) \
-            .ChildKey(0 + BIP32_HARDEN) \
-            .ChildKey(0 + BIP32_HARDEN) \
-            .ChildKey(0) \
-            .ChildKey(account_number)
+        network_number = 0
     elif network == 'bitcoin-testnet':
-        account = key.ChildKey(44 + BIP32_HARDEN) \
-            .ChildKey(1 + BIP32_HARDEN) \
-            .ChildKey(0 + BIP32_HARDEN) \
-            .ChildKey(0) \
-            .ChildKey(account_number)
+        network_number = 1
     elif network == 'ethereum':
-        account = key.ChildKey(44 + BIP32_HARDEN) \
-            .ChildKey(60 + BIP32_HARDEN) \
-            .ChildKey(0 + BIP32_HARDEN) \
-            .ChildKey(0) \
-            .ChildKey(account_number)
+        network_number = 60    
     else:
         print("network should not be" + network) 
         sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+    
+    account = key.ChildKey(44 + BIP32_HARDEN) \
+         .ChildKey(network_number + BIP32_HARDEN) \
+         .ChildKey(0 + BIP32_HARDEN) \
+         .ChildKey(0) \
+         .ChildKey(account_number)
     return account        
+
+def gen_bitcoin_account_from_seed(seed,account_number):
+    key = rootkey_from_seed(seed,"bitcoin")
+    account = account_from_rootkey(key,account_number,"bitcoin")
+    return account
+
+def gen_bitcoin_testnet_account_from_seed(seed,account_number):
+    key = rootkey_from_seed(seed,"bitcoin-testnet")
+    account = account_from_rootkey(key,account_number,"bitcoin-testnet")
+    return account
+
+def gen_ethereum_account_from_seed(seed,account_number):
+    key = rootkey_from_seed(seed,"ethereum")
+    account = account_from_rootkey(key,account_number,"ethereum")
+    return account
 
 def bitcoin_data(account):
     private_key = account.PrivateKey()
@@ -77,9 +86,22 @@ def bitcoin_data(account):
     return private_key,wif,public_key,address
 
 def ethereum_data(account):
-    private_key_eth = acccount.PrivateKey()
+    private_key_eth = account.PrivateKey()
     address_eth = checksum_encode(privtoaddr(private_key_eth))
     return private_key_eth,address_eth
+
+def gen_bitcoin_wallet(seed,account_number):
+    account = gen_bitcoin_account_from_seed(seed,account_number)
+    return bitcoin_data(account)
+
+def gen_bitcoin_testnet_wallet(seed,account_number):
+    account = gen_bitcoin_testnet_account_from_seed(seed,account_number)
+    return bitcoin_data(account)
+
+def gen_ethereum_wallet(seed,account_number):
+    account = gen_ethereum_account_from_seed(seed,account_number)
+    return ethereum_data(account)
+
 
 if __name__ == '__main__':
 
