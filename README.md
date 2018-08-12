@@ -20,9 +20,8 @@ chmod u+x walletgen
 # Usage
 
 To generate a new mnemonic (24 words)
-
+```
 ./walletgen --new mnemonic 
-
 output : 
   24 words
   equivalent master seed 
@@ -44,7 +43,9 @@ output:
   address
   
   
+```
 example :
+```
 
 ./walletgen --new mnemonic 
 
@@ -75,7 +76,4 @@ WIF : L4waNN1cK3UJUMAzeWp31BfMwdciQ7QbX4rrJP4SamBUnydjJGQ5
 public key : 02b7b73b2fe2362933724437bb37c40167192a3ab88236c45492405ac258674954
 
 address : 19jnnAWWv2rP968cAjaYqDHSLZ5Waz3DLZ
-
-
-
-
+```
