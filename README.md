@@ -9,6 +9,8 @@ pip install mnemonic
 
 pip install bip32utils
 
+pip install ethereum
+
 # install
 
 git clone https://github.com/MohamedLEGH/WalletGenPython
