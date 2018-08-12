@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+import getpass
+import sys
+
+import argparse
+from library import *
+
+coins = ['bitcoin','bitcoin-testnet','ethereum']
+
+parser = argparse.ArgumentParser(description='Generate hd wallet and account for bitcoin and ethereum')
+#parser.add_argument("--mnemonic", help="generate a new mnemonic seed and output it in the commandline")
+#parser.add_argument("--account", help="generate an account from a seed, an account number and a network")
+parser.add_argument("--new", help="generate a new mnemonic or account")
+args = parser.parse_args()
+
+def print_mnemonic():
+    mnemo = create_mnemonic()
+    print("Your 24 mnemonic words are: \n" + mnemo[0])
+    print("The equivalent master seed is: \n" + mnemo[1].hex())
+
+if args.new=="mnemonic":
+    print_mnemonic()
+
+elif args.new=="account":
+    network = input("Please enter network (bitcoin, bitcoin-testnet or ethereum : ")
+    if network not in coins:
+        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+    number = int(input("Please enter account number : "))
+    words = getpass.getpass('Please input 24 mnemonic words :\n')
+#print(args.new)    
+    
+"""
+
+walletgen mnemonic
+output
+words
+seed
+
+walletgen --address --seed "seed"
+please input seed
+please input networks [bitcoin or bitcoin-testnet or ethereum]
+please input account number
+output
+private key
+address
+
+"""
+
+"""
+bytes.fromhex(seedS)
+"""
+

@@ -1,5 +1,11 @@
 #!/usr/bin/env python
- 
+
+"""
+
+library to generate hd account for bitcoin and ethereum
+follo https://iancoleman.io/bip39/ patern
+
+"""
 import sys
 
 from mnemonic import Mnemonic
@@ -10,6 +16,9 @@ from ethereum.utils import privtoaddr,checksum_encode # for ethereum derivation
 
 coins = ['bitcoin','bitcoin-testnet','ethereum']
 
+"""
+bytes.fromhex("stuff")
+"""
 def create_words():
     m = Mnemonic('english')
     words = m.generate(strength=256)
@@ -23,8 +32,7 @@ def create_seed(words):
 def create_mnemonic():
     words = create_words()
     seed = create_seed(words)
-    seed_S = seed.hex()
-    return words,seed_S
+    return words,seed
 
 def rootkey_from_seed(seed,network):
     if network == 'bitcoin' or network == 'ethereum':
@@ -60,6 +68,18 @@ def account_from_rootkey(key,account_number,network):
         print("network should not be" + network) 
         sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
     return account        
+
+def bitcoin_data(account):
+    private_key = account.PrivateKey()
+    wif = account.WalletImportFormat()
+    public_key = account.PublicKey()
+    address = account.Address()
+    return private_key,wif,public_key,address
+
+def ethereum_data(account):
+    private_key_eth = acccount.PrivateKey()
+    address_eth = checksum_encode(privtoaddr(private_key_eth))
+    return private_key_eth,address_eth
 
 if __name__ == '__main__':
 
