@@ -13,8 +13,7 @@ pip install ethereum
 
 # install
 
-git clone https://github.com/MohamedLEGH/WalletGenPython
-
+git clone https://github.com/MohamedLEGH/CryptoWalletGenerator
 cd WalletGenPython
 
 chmod u+x walletgen
