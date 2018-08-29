@@ -42,7 +42,7 @@ To generate seed
 ```
 
 To derivate account from seed
-
+```
 ./walletgen --datafromseed
 
 enter the seed
@@ -56,13 +56,11 @@ output:
   wif (only bitcoin and bitcoin-testnet)
   public key (only bitcoin and bitcoin-testnet)
   address
-  
-  
-```
+```  
 
 
 To derivate account from 24 words
-
+```
 ./walletgen --data
 
 enter the mnemonic 24 words
