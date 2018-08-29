@@ -5,16 +5,16 @@ Can be used to create bitcoin, bitcoin-testnet or ethereum account
 Follow same pattern as this website : https://iancoleman.io/bip39/
 
 # Before install
-pip install mnemonic 
+pip3 install mnemonic 
 
-pip install bip32utils
+pip3 install bip32utils
 
-pip install ethereum
+pip3 install ethereum
 
 # install
 
 git clone https://github.com/MohamedLEGH/CryptoWalletGenerator
-cd WalletGenPython
+cd CryptoWalletGenerator
 
 chmod u+x walletgen
 
