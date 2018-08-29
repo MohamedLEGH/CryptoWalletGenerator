@@ -13,15 +13,40 @@ from library import *
 coins = ['bitcoin','bitcoin-testnet','ethereum']
 
 parser = argparse.ArgumentParser(description='Generate hd wallet and account for bitcoin and ethereum')
-#parser.add_argument("--mnemonic", help="generate a new mnemonic seed and output it in the commandline")
-#parser.add_argument("--account", help="generate an account from a seed, an account number and a network")
-parser.add_argument("--new", help="generate a new mnemonic or account")
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-m", "--mnemonic", help="generate 24 mnemonic words and the equivalent seed and output them in the commandline",action='store_true')
+group.add_argument("-w", "--words", help="generate 24 mnemonic words and output it in the commandline",action='store_true')
+group.add_argument("-s", "--seed", help="generate a seed and output it in the commandline",action='store_true')
+
+group.add_argument("-d", "--data", help="give data from 24 mnemonic words, an account number and a network",action='store_true')
+group.add_argument("-e", "--datafromseed", help="give data from seed, an account number and a network",action='store_true')
+
+group.add_argument("-k", "--key", help="give a private key from a seed, network and number",nargs=3, metavar=('SEED', 'NETWORK','ACCOUNT_NUMBER'))
+group.add_argument("-a", "--address", help="give an address from a seed, network and number",nargs=3,metavar=('SEED', 'NETWORK','ACCOUNT_NUMBER'))
+
 args = parser.parse_args()
+
+
+def print_words():
+    mnemo = create_mnemonic()
+    print(mnemo[0])
+
+def print_seed():
+    mnemo = create_mnemonic()
+    print(mnemo[1].hex())
+
 
 def print_mnemonic():
     mnemo = create_mnemonic()
     print("Your 24 mnemonic words are: \n" + mnemo[0] + "\n")
     print("The equivalent master seed is: \n" + mnemo[1].hex() + "\n")
+
+def get_privatekey(data):
+    return data[0].hex()
+
+def get_address(data):
+    return data[0].hex()
+
 
 def print_account(words,network,account_number):
     seed = create_seed(words)
@@ -31,15 +56,37 @@ def print_account(words,network,account_number):
     if network == "bitcoin":
         data = gen_bitcoin_wallet(seed,account_number)
         print("private key : " + data[0].hex() + "\n")
-        print("WIF : " + data[1] + "\n")
-        print("public key : " + data[2].hex() + "\n")
-        print("address : " + data[3] + "\n")                        
+        print("WIF : " + data[2] + "\n")
+        print("public key : " + data[3].hex() + "\n")
+        print("address : " + data[1] + "\n")                        
     if network == "bitcoin-testnet":
         data = gen_bitcoin_testnet_wallet(seed,account_number)
         print("private key : " + data[0].hex() + "\n")
-        print("WIF : " + data[1] + "\n")
-        print("public key : " + data[2].hex() + "\n")
-        print("address : " + data[3] + "\n")                        
+        print("WIF : " + data[2] + "\n")
+        print("public key : " + data[3].hex() + "\n")
+        print("address : " + data[1] + "\n")                        
+
+    if network == "ethereum":
+        data = gen_ethereum_wallet(seed,account_number)
+        print("private key : " + data[0].hex() + "\n")
+        print("address : " + data[1] + "\n")                        
+
+def print_accountfromseed(seed,network,account_number):
+    if network not in coins:
+        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+    
+    if network == "bitcoin":
+        data = gen_bitcoin_wallet(seed,account_number)
+        print("private key : " + data[0].hex() + "\n")
+        print("WIF : " + data[2] + "\n")
+        print("public key : " + data[3].hex() + "\n")
+        print("address : " + data[1] + "\n")                        
+    if network == "bitcoin-testnet":
+        data = gen_bitcoin_testnet_wallet(seed,account_number)
+        print("private key : " + data[0].hex() + "\n")
+        print("WIF : " + data[2] + "\n")
+        print("public key : " + data[3].hex() + "\n")
+        print("address : " + data[1] + "\n")                        
 
     if network == "ethereum":
         data = gen_ethereum_wallet(seed,account_number)
@@ -47,16 +94,74 @@ def print_account(words,network,account_number):
         print("address : " + data[1] + "\n")                        
 
 
-if args.new=="mnemonic":
+def print_privatekey(seed,network,account_number):
+
+    if network not in coins:
+        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+
+    if network == "bitcoin":
+        data = gen_bitcoin_wallet(seed,account_number)
+    if network == "bitcoin-testnet":
+        data = gen_bitcoin_testnet_wallet(seed,account_number)
+    if network == "ethereum":
+        data = gen_ethereum_wallet(seed,account_number)
+    print(data[0].hex())
+
+
+def print_address(seed,network,account_number):
+    if network not in coins:
+        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+    
+    if network == "bitcoin":
+        data = gen_bitcoin_wallet(seed,account_number)      
+    if network == "bitcoin-testnet":
+        data = gen_bitcoin_testnet_wallet(seed,account_number)
+    if network == "ethereum":
+        data = gen_ethereum_wallet(seed,account_number)
+    print(data[1])                        
+
+
+
+
+if(args.mnemonic):
     print_mnemonic()
 
-elif args.new=="account":
+if(args.words):
+    print_words()
+    
+if(args.seed):
+    print_seed()
+
+if(args.key):
+    seed = args.key[0].encode()
+    network = args.key[1]
+    account_number = int(args.key[2])
+    print_privatekey(seed,network,account_number)
+
+if(args.address):
+    seed = args.address[0].encode()
+    network = args.address[1]
+    account_number = int(args.address[2])
+    print_address(seed,network,account_number)
+
+
+if(args.data):
+    words = input('Please input 24 mnemonic words :\n')
     network = input("Please enter network (bitcoin, bitcoin-testnet or ethereum) :")
     if network not in coins:
         sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
     number = int(input("Please enter account number :"))
-    words = input('Please input 24 mnemonic words :\n')
     print("\n ********** Account Data ********** \n")
     print_account(words,network,number)
+
+
+if(args.datafromseed):
+    seed = input('Please input seed :\n').encode()
+    network = input("Please enter network (bitcoin, bitcoin-testnet or ethereum) :")
+    if network not in coins:
+        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
+    number = int(input("Please enter account number :"))
+    print("\n ********** Account Data ********** \n")
+    print_accountfromseed(seed,network,number)
 
 

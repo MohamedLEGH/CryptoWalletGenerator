@@ -83,7 +83,7 @@ def bitcoin_data(account):
     wif = account.WalletImportFormat()
     public_key = account.PublicKey()
     address = account.Address()
-    return private_key,wif,public_key,address
+    return private_key,address,wif,public_key
 
 def ethereum_data(account):
     private_key_eth = account.PrivateKey()
