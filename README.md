@@ -26,7 +26,7 @@ To generate 24 words and mnemonic
 output : 
   24 words
   equivalent master seed 
-
+```
 To generate 24 words
 
 ```
