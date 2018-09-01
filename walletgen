@@ -18,6 +18,8 @@ group.add_argument("-m", "--mnemonic", help="generate 24 mnemonic words and the 
 group.add_argument("-w", "--words", help="generate 24 mnemonic words and output it in the commandline",action='store_true')
 group.add_argument("-s", "--seed", help="generate a seed and output it in the commandline",action='store_true')
 
+group.add_argument("--seedfromwords", help="get seed from 24 words (input a string)")
+
 group.add_argument("-d", "--data", help="give data from 24 mnemonic words, an account number and a network",action='store_true')
 group.add_argument("-e", "--datafromseed", help="give data from seed, an account number and a network",action='store_true')
 
@@ -144,6 +146,11 @@ if(args.address):
     account_number = int(args.address[2])
     print_address(seed,network,account_number)
 
+
+if(args.seedfromwords):
+    words = args.seedfromwords
+    seed = create_seed(words)
+    print(seed.hex())
 
 if(args.data):
     words = input('Please input 24 mnemonic words :\n')

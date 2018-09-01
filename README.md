@@ -31,14 +31,25 @@ To generate 24 words
 
 ```
 ./walletgen --words
-rate latin vicious music pig physical fix number raven session leaf festival indicate wrap umbrella federal begin grocery crop unfair task submit two payment
+output : rate latin vicious music pig physical fix number raven session leaf festival indicate wrap umbrella federal begin grocery crop unfair task submit two payment
 ```
 
 To generate seed
 
 ```
 ./walletgen --seed
-7376da6f43b6e8fe46897c6343b8f14f05581b65f6b6cb296ef4098258a3a29c61073180cc0f348b9934f6abf299c107d9ecf9215ce212f7f6fea791147d8462
+output : 7376da6f43b6e8fe46897c6343b8f14f05581b65f6b6cb296ef4098258a3a29c61073180cc0f348b9934f6abf299c107d9ecf9215ce212f7f6fea791147d8462
+```
+
+To generate seed from 24 words
+
+```
+./walletgen --seedfromwords "24words" 
+```
+example:
+```
+./walletgen --seedfromwords "cannon lucky try weasel lawn private object forward tortoise pet wasp shine mad verb dinner summer idea make notable suffer family license bless story"
+output :189751cf217140241754eb9825f1343fb69b74201001fbad448fb5fb91bf25d832e04bd8af89892cc5a87e07f61c4afe7b6fdae96b68c68d977a9253ae425801
 ```
 
 To derivate account from seed
