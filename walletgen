@@ -44,34 +44,11 @@ def print_mnemonic():
     print("The equivalent master seed is: \n" + mnemo[1].hex() + "\n")
 
 def get_privatekey(data):
-    return data[0].hex()
+    return data[0]
 
 def get_address(data):
-    return data[1].hex()
+    return data[1]
 
-
-def print_account(words,network,account_number):
-    seed = create_seed(words)
-    if network not in coins:
-        sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
-    
-    if network == "bitcoin":
-        data = gen_bitcoin_wallet(seed,account_number)
-        print("private key : " + data[0].hex() + "\n")
-        print("WIF : " + data[2] + "\n")
-        print("public key : " + data[3].hex() + "\n")
-        print("address : " + data[1] + "\n")                        
-    if network == "bitcoin-testnet":
-        data = gen_bitcoin_testnet_wallet(seed,account_number)
-        print("private key : " + data[0].hex() + "\n")
-        print("WIF : " + data[2] + "\n")
-        print("public key : " + data[3].hex() + "\n")
-        print("address : " + data[1] + "\n")                        
-
-    if network == "ethereum":
-        data = gen_ethereum_wallet(seed,account_number)
-        print("private key : " + data[0].hex() + "\n")
-        print("address : " + data[1] + "\n")                        
 
 def print_accountfromseed(seed,network,account_number):
     if network not in coins:
@@ -95,6 +72,9 @@ def print_accountfromseed(seed,network,account_number):
         print("private key : " + data[0].hex() + "\n")
         print("address : " + data[1] + "\n")                        
 
+def print_account(words,network,account_number):
+    seed = create_seed(words)
+    print_accountfromseed(seed,network,account_number)
 
 def print_privatekey(seed,network,account_number):
 
@@ -107,20 +87,19 @@ def print_privatekey(seed,network,account_number):
         data = gen_bitcoin_testnet_wallet(seed,account_number)
     if network == "ethereum":
         data = gen_ethereum_wallet(seed,account_number)
-    print(data[0].hex())
-
+    print(get_privatekey(data).hex())
 
 def print_address(seed,network,account_number):
     if network not in coins:
         sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")
     
     if network == "bitcoin":
-        data = gen_bitcoin_wallet(seed,account_number)      
+        data = gen_bitcoin_wallet(seed,account_number)
     if network == "bitcoin-testnet":
         data = gen_bitcoin_testnet_wallet(seed,account_number)
     if network == "ethereum":
         data = gen_ethereum_wallet(seed,account_number)
-    print(data[1])                        
+    print(get_address(data))
 
 
 
