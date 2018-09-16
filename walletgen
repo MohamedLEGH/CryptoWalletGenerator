@@ -114,13 +114,13 @@ if(args.seed):
     print_seed()
 
 if(args.key):
-    seed = args.key[0].encode()
+    seed = bytes.fromhex(args.key[0])
     network = args.key[1]
     account_number = int(args.key[2])
     print_privatekey(seed,network,account_number)
 
 if(args.address):
-    seed = args.address[0].encode()
+    seed = bytes.fromhex(args.address[0])
     network = args.address[1]
     account_number = int(args.address[2])
     print_address(seed,network,account_number)
@@ -142,7 +142,7 @@ if(args.data):
 
 
 if(args.datafromseed):
-    seed = input('Please input seed :\n').encode()
+    seed = bytes.fromhex(input('Please input seed :\n'))
     network = input("Please enter network (bitcoin, bitcoin-testnet or ethereum) :")
     if network not in coins:
         sys.exit("Wrong Network : should be ethereum or bitcoin or bitcoin-testnet!")

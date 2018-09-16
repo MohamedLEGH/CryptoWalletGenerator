@@ -94,7 +94,7 @@ To derivate privatekey from seed
 ./walletgen --key SEED NETWORK ACCOUNT_NUMBER
 (example) :
 ./walletgen --key 7376da6f43b6e8fe46897c6343b8f14f05581b65f6b6cb296ef4098258a3a29c61073180cc0f348b9934f6abf299c107d9ecf9215ce212f7f6fea791147d8462 ethereum 2
-output : 3aeb641849cd9583133f48d18ac88ee08e28450294f3985aa095ae164bdb9192
+output : 145bb45fb5588d44800e0461cf5b0bfdda2a44f3767d583180c9984233c6c7f8
 ```
 
 To derivate address from seed
@@ -102,5 +102,5 @@ To derivate address from seed
 ./walletgen --address SEED NETWORK ACCOUNT_NUMBER
 (example) :
 ./walletgen --address 7376da6f43b6e8fe46897c6343b8f14f05581b65f6b6cb296ef4098258a3a29c61073180cc0f348b9934f6abf299c107d9ecf9215ce212f7f6fea791147d8462 ethereum 2
-output : 0x0c0F7DD7C1A12F1e151958C42e031Fd61f1df1dC
+output : 0x8FaF0bc74b0b4be7384f7d6921FD538D0Df11a07
 ```
