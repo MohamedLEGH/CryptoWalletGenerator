@@ -47,7 +47,7 @@ def get_privatekey(data):
     return data[0].hex()
 
 def get_address(data):
-    return data[0].hex()
+    return data[1].hex()
 
 
 def print_account(words,network,account_number):

@@ -61,7 +61,7 @@ def account_from_rootkey(key,account_number,network):
          .ChildKey(0 + BIP32_HARDEN) \
          .ChildKey(0) \
          .ChildKey(account_number)
-    return account        
+    return account
 
 def gen_bitcoin_account_from_seed(seed,account_number):
     key = rootkey_from_seed(seed,"bitcoin")
