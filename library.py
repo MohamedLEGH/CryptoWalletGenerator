@@ -117,14 +117,24 @@ if __name__ == '__main__':
     
     
     print("******************Test Bitcoin********************")
-    xprv = BIP32Key.fromEntropy(seed).ExtendedKey()
-    print("Root Key is " + xprv)
-    key = BIP32Key.fromExtendedKey(xprv)
-    bitcoin0 = key.ChildKey(44 + BIP32_HARDEN) \
+    globalkey = BIP32Key.fromEntropy(seed)
+    root = globalkey.ExtendedKey()
+    print("Root Key is " + root)
+    key = BIP32Key.fromExtendedKey(root)
+    bitcoinkey = key.ChildKey(44 + BIP32_HARDEN) \
         .ChildKey(0 + BIP32_HARDEN) \
-        .ChildKey(0 + BIP32_HARDEN) \
-        .ChildKey(0) \
-        .ChildKey(0)
+        .ChildKey(0 + BIP32_HARDEN)
+    AccountExtendedPrivateKey = bitcoinkey.ExtendedKey()
+    print("Account Extended Private Key is " + AccountExtendedPrivateKey)
+    AccountExtendedPublicKey  = bitcoinkey.ExtendedKey(private=False)
+    print("Account Extended Public Key is " + AccountExtendedPublicKey)
+    bitcoinaccount = bitcoinkey.ChildKey(0)
+    BIP32ExtendedPrivateKey = bitcoinaccount.ExtendedKey()
+    print("BIP32 Extended Private Key  is : " +  BIP32ExtendedPrivateKey)
+    BIP32ExtendedPublicKey = bitcoinaccount.ExtendedKey(private=False)
+    print("BIP32 Extended Public Key  is : " +  BIP32ExtendedPublicKey)
+    bitcoin0 = bitcoinaccount.ChildKey(0)
+
         
     print("first private key")
     print(bitcoin0.WalletImportFormat())
@@ -133,14 +143,25 @@ if __name__ == '__main__':
     
     
     print("******************Test Bitcoin Testnet********************")
-    xprv = BIP32Key.fromEntropy(seed,testnet=True).ExtendedKey()
-    print("Root Key is " + xprv)
-    key = BIP32Key.fromExtendedKey(xprv)
-    bitcoin0 = key.ChildKey(44 + BIP32_HARDEN) \
+    globalkey = BIP32Key.fromEntropy(seed,testnet=True)
+    root = globalkey.ExtendedKey()
+    print("Root Key is " + root)
+    key = BIP32Key.fromExtendedKey(root)
+    bitcoinkey = key.ChildKey(44 + BIP32_HARDEN) \
         .ChildKey(1 + BIP32_HARDEN) \
-        .ChildKey(0 + BIP32_HARDEN) \
-        .ChildKey(0) \
-        .ChildKey(0)
+        .ChildKey(0 + BIP32_HARDEN)
+        
+    AccountExtendedPrivateKey = bitcoinkey.ExtendedKey()
+    print("Account Extended Private Key is " + AccountExtendedPrivateKey)
+    AccountExtendedPublicKey  = bitcoinkey.ExtendedKey(private=False)
+    print("Account Extended Public Key is " + AccountExtendedPublicKey)
+    bitcoinaccount = bitcoinkey.ChildKey(0)
+    
+    BIP32ExtendedPrivateKey = bitcoinaccount.ExtendedKey()
+    print("BIP32 Extended Private Key  is : " +  BIP32ExtendedPrivateKey)
+    BIP32ExtendedPublicKey = bitcoinaccount.ExtendedKey(private=False)
+    print("BIP32 Extended Public Key  is : " +  BIP32ExtendedPublicKey)
+    bitcoin0 = bitcoinaccount.ChildKey(0)
     print("first private key")
     print(bitcoin0.WalletImportFormat())
     print("first address")
@@ -149,14 +170,24 @@ if __name__ == '__main__':
     
     print("******************Test Ethereum********************")
 
-    xprv = BIP32Key.fromEntropy(seed).ExtendedKey()
-    print("Root Key is " + xprv)
-    key = BIP32Key.fromExtendedKey(xprv)
-    ethereum0 = key.ChildKey(44 + BIP32_HARDEN) \
+    globalkey = BIP32Key.fromEntropy(seed) 
+    root = globalkey.ExtendedKey()
+    print("Root Key is " + root)
+    key = BIP32Key.fromExtendedKey(root)
+    ethereumkey = key.ChildKey(44 + BIP32_HARDEN) \
         .ChildKey(60 + BIP32_HARDEN) \
-        .ChildKey(0 + BIP32_HARDEN) \
-        .ChildKey(0) \
-        .ChildKey(0)
+        .ChildKey(0 + BIP32_HARDEN)
+    
+    AccountExtendedPrivateKey = ethereumkey.ExtendedKey()
+    print("Account Extended Private Key is " + AccountExtendedPrivateKey)
+    AccountExtendedPublicKey  = ethereumkey.ExtendedKey(private=False)
+    print("Account Extended Public Key is " + AccountExtendedPublicKey)
+    ethereumaccount = ethereumkey.ChildKey(0)
+    BIP32ExtendedPrivateKey = ethereumaccount.ExtendedKey()
+    print("BIP32 Extended Private Key  is : " +  BIP32ExtendedPrivateKey)
+    BIP32ExtendedPublicKey = ethereumaccount.ExtendedKey(private=False)
+    print("BIP32 Extended Public Key  is : " +  BIP32ExtendedPublicKey)
+    ethereum0 = ethereumaccount.ChildKey(0)
     private_key_eth = ethereum0.PrivateKey()
     print("first private key")
     print(private_key_eth.hex())
